@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ConsoleTasks
 {
@@ -15,20 +11,51 @@ namespace ConsoleTasks
             Console.OutputEncoding = System.Text.Encoding.Unicode;
 
             string text;
+            int number, optionNum;
 
-            Console.Write("Enter the words for checking for anagrams:\n");
+            Console.WriteLine("Choose the option:\n"
+                            + "1 - Check the words for anagrams\n"
+                            + "2 - Check the word for palindrome\n"
+                            + "3 - Get prime numbers\n"
+                            + "4 - Exit\n"
+                            );
 
-            text = Console.ReadLine().ToLower().Trim();
+            while (true)
+            {
+                optionNum = Convert.ToInt32(Console.ReadLine());
 
-            Console.Write(CheckForAnagrams(text.Split(' ')));
+                if (optionNum == 4) break;
 
-            Console.Write("Enter the words for checking for palindrome:\n");
+                switch (optionNum)
+                {
+                    case 1:
+                        Console.Write("Enter the words for checking for anagrams:\n");
 
-            text = Console.ReadLine().ToLower().Trim();
+                        text = Console.ReadLine().ToLower().Trim();
 
-            Console.Write(CheckForPalindrome(text));
+                        Console.Write(CheckForAnagrams(text.Split(' ')));
 
-            Console.ReadKey();
+                        break;
+
+                    case 2:
+                        Console.Write("Enter the words for checking for palindrome:\n");
+
+                        text = Console.ReadLine().ToLower().Trim();
+
+                        Console.Write(CheckForPalindrome(text));
+
+                        break;
+                    
+                    case 3:
+                        Console.Write("Enter the number:\n");
+
+                        number = Convert.ToInt32(Console.ReadLine().Trim());
+
+                        Console.Write(GetPrimeList(number) + "\n");
+
+                        break;
+                }
+            }
         }
 
         static string CheckForAnagrams(string[] words)
@@ -66,6 +93,30 @@ namespace ConsoleTasks
             }
 
             return "Word is palindrome\n";
+        }
+
+        static bool IsPrime(int number)
+        {
+            for (int i = 2; i < number; i++)
+            {
+                if (number % i == 0) 
+                    return false;
+            }
+
+            return true;
+        }
+        
+        static string GetPrimeList(int number)
+        {
+            string primeList = "";
+
+            for (int i = 2; i <= number; i++)
+            {
+                if (IsPrime(i))
+                    primeList += i + ", ";
+            }
+
+            return primeList.TrimEnd(new char[] { ',', ' ' });
         }
     }
 }
